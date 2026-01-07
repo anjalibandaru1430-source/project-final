@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuralRoots | AI & Cloud Empowered Artisan Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        .ai-glow {
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s ease;
+        }
+        .ai-glow:hover {
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.6);
+            transform: translateY(-2px);
+        }
+        .cloud-badge {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            border: 1px solid #7dd3fc;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+        .loader {
+            border: 3px solid #e0e7ff; /* Lighter indigo */
+            border-radius: 50%;
+            border-top: 3px solid #4338ca; /* Darker indigo */
+            width: 30px;
+            height: 30px;
+            -webkit-animation: spin 1s linear infinite; /* Safari */
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Navigation -->
+    <nav class="bg-white sticky top-0 z-50 shadow-md border-b border-indigo-100">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-tree text-green-600 text-2xl"></i>
+                <span class="text-2xl font-bold text-slate-800">Rural<span class="text-indigo-600">Roots</span></span>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#home" class="hover:text-indigo-600 font-medium transition">Home</a>
+                <a href="#artisans" class="hover:text-indigo-600 font-medium transition">Artisans</a>
+                <a href="#shop" class="hover:text-indigo-600 font-medium transition">Shop</a>
+                <a href="#dashboard" class="text-indigo-600 font-bold hover:text-indigo-800 transition"><i class="fa-solid fa-chart-line mr-1"></i> Artisan Dashboard</a>
+                <a href="#technology" class="hover:text-indigo-600 font-medium transition">Technology</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <!-- AI Translate Feature -->
+                <button onclick="toggleLanguage()" class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition text-sm font-semibold border border-indigo-200">
+                    <i class="fa-solid fa-language"></i>
+                    <span id="lang-text">EN</span>
+                </button>
+                
+                <button class="relative p-2 text-slate-600 hover:text-indigo-600 transition">
+                    <i class="fa-solid fa-cart-shopping text-xl"></i>
+                    <span class="absolute top-0 right-0 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">2</span>
+                </button>
+                <button class="md:hidden text-2xl text-slate-600" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t p-4 flex flex-col gap-4 shadow-lg">
+            <a href="#home" class="block py-2">Home</a>
+            <a href="#artisans" class="block py-2">Artisans</a>
+            <a href="#shop" class="block py-2">Shop</a>
+            <a href="#dashboard" class="block py-2 text-indigo-600 font-bold">Artisan Dashboard</a>
+            <a href="#technology" class="block py-2">Technology</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="relative bg-slate-900 text-white overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center opacity-40" style="background-image: url('https://images.unsplash.com/photo-1606293926075-69a00dbfde81?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');"></div>
+        <div class="container mx-auto px-4 py-24 relative z-10 flex flex-col items-center text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-600/30 border border-indigo-400/50 backdrop-blur-sm mb-6 animate-pulse">
+                <i class="fa-solid fa-bolt text-yellow-400"></i>
+                <span class="text-sm font-semibold tracking-wide uppercase">Powered by Cloud & AI</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">Empowering Rural Craftsmanship<br>with Global Technology</h1>
+            <p class="text-lg md:text-xl text-slate-200 mb-10 max-w-2xl">
+                Connecting isolated rural artisans to the global market using Cloud Scalability and AI-driven market insights.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4">
+                <a href="#shop" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold transition shadow-lg shadow-indigo-500/30">
+                    Explore Collection
+                </a>
+                <a href="#dashboard" class="px-8 py-3 bg-white hover:bg-slate-100 text-slate-900 rounded-lg font-bold transition">
+                    I am an Artisan
+                </a>
+            </div>
+            
+            <!-- Cloud Stats -->
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center w-full max-w-4xl">
+                <div>
+                    <div class="text-3xl font-bold text-indigo-400">12K+</div>
+                    <div class="text-sm text-slate-300">Artisans Onboarded</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-indigo-400">50+</div>
+                    <div class="text-sm text-slate-300">Countries Served (Cloud CDN)</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-indigo-400">98%</div>
+                    <div class="text-sm text-slate-300">Fair Income Return</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-indigo-400">24/7</div>
+                    <div class="text-sm text-slate-300">AI Support Active</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- AI Feature Spotlight: Smart Recommendations -->
+    <section class="py-12 bg-indigo-50 border-b border-indigo-100">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xl">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-slate-800">AI-Personalized Feed</h3>
+                        <p class="text-sm text-slate-600">Based on your location (Bengaluru), we recommend these trending crafts.</p>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <span class="px-3 py-1 bg-white text-indigo-600 rounded-full text-xs font-semibold border border-indigo-200">#Sustainable</span>
+                    <span class="px-3 py-1 bg-white text-indigo-600 rounded-full text-xs font-semibold border border-indigo-200">#Handloom</span>
+                    <span class="px-3 py-1 bg-white text-indigo-600 rounded-full text-xs font-semibold border border-indigo-200">#Terracotta</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Artisans Section -->
+    <section id="artisans" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-indigo-600 font-bold tracking-wider uppercase text-sm">Our Heroes</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mt-2">Meet the Makers</h2>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Artisan Card 1 -->
+                <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1595133642398-a6d594b59521?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Artisan" class="w-full h-96 object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <div class="translate-y-4 group-hover:translate-y-0 transition duration-300">
+                            <span class="bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded mb-2 inline-block">Top Rated</span>
+                            <h3 class="text-2xl font-bold text-white">Lakshmi Devi</h3>
+                            <p class="text-slate-300 mb-2"><i class="fa-solid fa-location-dot mr-1"></i> Madhubani, Bihar</p>
+                            <p class="text-slate-200 text-sm line-clamp-2 mb-4">Master of Madhubani painting for over 30 years. Supporting a community of 50 women.</p>
+                            <button class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-medium transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-eye"></i> View Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artisan Card 2 -->
+                <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1506803830704-58531067e715?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Artisan" class="w-full h-96 object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <div class="translate-y-4 group-hover:translate-y-0 transition duration-300">
+                            <span class="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">Eco-Friendly</span>
+                            <h3 class="text-2xl font-bold text-white">Ramesh Kumar</h3>
+                            <p class="text-slate-300 mb-2"><i class="fa-solid fa-location-dot mr-1"></i> Kutch, Gujarat</p>
+                            <p class="text-slate-200 text-sm line-clamp-2 mb-4">Creating sustainable pottery using ancient techniques passed down through generations.</p>
+                            <button class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-medium transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-eye"></i> View Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artisan Card 3 -->
+                <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1534125828424-76228741369f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Artisan" class="w-full h-96 object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
+                        <div class="translate-y-4 group-hover:translate-y-0 transition duration-300">
+                             <span class="bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">New Arrival</span>
+                            <h3 class="text-2xl font-bold text-white">Sarah & Team</h3>
+                            <p class="text-slate-300 mb-2"><i class="fa-solid fa-location-dot mr-1"></i> Shillong, Meghalaya</p>
+                            <p class="text-slate-200 text-sm line-clamp-2 mb-4">Weaving exquisite bamboo crafts that blend tradition with modern utility.</p>
+                            <button class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-medium transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-eye"></i> View Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Section with AI Features -->
+    <section id="shop" class="py-20 bg-slate-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-10">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Smart Marketplace</h2>
+                    <p class="text-slate-600 mt-2">Curated by AI based on quality and authenticity.</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex gap-2">
+                     <button class="px-4 py-2 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 text-slate-700 shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-filter"></i> Filter
+                    </button>
+                    <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-lg shadow-indigo-500/30 flex items-center gap-2">
+                        <i class="fa-solid fa-camera"></i> AI Visual Search
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product 1 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden group ai-glow">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1574351651877-33e382d56d78?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Product" class="w-full h-64 object-cover">
+                        <button class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-red-500 shadow-md hover:scale-110 transition">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                        <div class="absolute bottom-0 left-0 right-0 bg-indigo-600 text-white text-xs py-1 px-2 text-center transform translate-y-full group-hover:translate-y-0 transition duration-300">
+                            <i class="fa-solid fa-check-circle mr-1"></i> AI Quality Verified
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-slate-800">Handwoven Silk Sari</h3>
+                            <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-bold">In Stock</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-3">By Lakshmi Devi • Bihar</p>
+                        <div class="flex items-center justify-between mt-4">
+                            <div>
+                                <span class="text-xl font-bold text-indigo-600">₹4,500</span>
+                                <span class="text-xs text-slate-400 line-through ml-1">₹6,000</span>
+                            </div>
+                            <button class="w-10 h-10 rounded-full bg-slate-100 hover:bg-indigo-600 hover:text-white transition flex items-center justify-center text-indigo-600">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                        <!-- Transparency Stat -->
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                            <span><i class="fa-solid fa-hand-holding-dollar text-green-500 mr-1"></i> 70% to Artisan</span>
+                            <span class="group-hover:text-indigo-500 transition cursor-help" title="Blockchain verified transaction">Cloud Verified <i class="fa-solid fa-circle-info ml-0.5"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden group ai-glow">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1593979857973-1fbc8eb36186?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Product" class="w-full h-64 object-cover">
+                        <button class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-red-500 shadow-md hover:scale-110 transition">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                        <div class="absolute bottom-0 left-0 right-0 bg-indigo-600 text-white text-xs py-1 px-2 text-center transform translate-y-full group-hover:translate-y-0 transition duration-300">
+                            <i class="fa-solid fa-check-circle mr-1"></i> AI Quality Verified
+                        </div>
+                    </div>
+                    <div class="p-4">
+                         <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-slate-800">Terracotta Vase</h3>
+                             <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded-full font-bold">Few Left</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-3">By Ramesh Kumar • Gujarat</p>
+                        <div class="flex items-center justify-between mt-4">
+                            <div>
+                                <span class="text-xl font-bold text-indigo-600">₹850</span>
+                            </div>
+                            <button class="w-10 h-10 rounded-full bg-slate-100 hover:bg-indigo-600 hover:text-white transition flex items-center justify-center text-indigo-600">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                         <!-- Transparency Stat -->
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                            <span><i class="fa-solid fa-hand-holding-dollar text-green-500 mr-1"></i> 65% to Artisan</span>
+                            <span class="group-hover:text-indigo-500 transition cursor-help" title="Blockchain verified transaction">Cloud Verified <i class="fa-solid fa-circle-info ml-0.5"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Product 3 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden group ai-glow">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1563297121-6a56e0d9b435?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Product" class="w-full h-64 object-cover">
+                        <button class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-red-500 shadow-md hover:scale-110 transition">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                        <div class="absolute bottom-0 left-0 right-0 bg-indigo-600 text-white text-xs py-1 px-2 text-center transform translate-y-full group-hover:translate-y-0 transition duration-300">
+                            <i class="fa-solid fa-check-circle mr-1"></i> AI Quality Verified
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-slate-800">Bamboo Basket</h3>
+                            <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-bold">In Stock</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-3">By Sarah & Team • Meghalaya</p>
+                        <div class="flex items-center justify-between mt-4">
+                            <div>
+                                <span class="text-xl font-bold text-indigo-600">₹1,200</span>
+                            </div>
+                            <button class="w-10 h-10 rounded-full bg-slate-100 hover:bg-indigo-600 hover:text-white transition flex items-center justify-center text-indigo-600">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                         <!-- Transparency Stat -->
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                            <span><i class="fa-solid fa-hand-holding-dollar text-green-500 mr-1"></i> 80% to Artisan</span>
+                            <span class="group-hover:text-indigo-500 transition cursor-help" title="Blockchain verified transaction">Cloud Verified <i class="fa-solid fa-circle-info ml-0.5"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Product 4 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden group ai-glow">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1627916568853-900508535a8e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Product" class="w-full h-64 object-cover">
+                        <button class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-red-500 shadow-md hover:scale-110 transition">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                         <div class="absolute bottom-0 left-0 right-0 bg-indigo-600 text-white text-xs py-1 px-2 text-center transform translate-y-full group-hover:translate-y-0 transition duration-300">
+                            <i class="fa-solid fa-check-circle mr-1"></i> AI Quality Verified
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-slate-800">Blue Pottery Plate</h3>
+                            <span class="bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded-full font-bold">Trending</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-3">By Rajesh Art • Rajasthan</p>
+                        <div class="flex items-center justify-between mt-4">
+                            <div>
+                                <span class="text-xl font-bold text-indigo-600">₹2,100</span>
+                            </div>
+                            <button class="w-10 h-10 rounded-full bg-slate-100 hover:bg-indigo-600 hover:text-white transition flex items-center justify-center text-indigo-600">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                         <!-- Transparency Stat -->
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                            <span><i class="fa-solid fa-hand-holding-dollar text-green-500 mr-1"></i> 75% to Artisan</span>
+                            <span class="group-hover:text-indigo-500 transition cursor-help" title="Blockchain verified transaction">Cloud Verified <i class="fa-solid fa-circle-info ml-0.5"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="px-8 py-3 border-2 border-slate-800 hover:bg-slate-800 hover:text-white text-slate-800 rounded-lg font-bold transition">
+                    View All Products
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Artisan Price Analysis Dashboard -->
+    <section id="dashboard" class="py-20 bg-indigo-900 text-white relative overflow-hidden">
+        <!-- Background elements -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-indigo-500 blur-3xl opacity-20"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 rounded-full bg-purple-500 blur-3xl opacity-20"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-12">
+                <span class="text-indigo-300 font-bold tracking-wider uppercase text-sm">For Artisans</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2">Smart Price Analysis Dashboard</h2>
+                <p class="text-indigo-200 mt-2 max-w-2xl mx-auto">Don't undersell your hard work. Our AI analyzes global markets to suggest the fair price for your craft.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto">
+                <!-- Input Module -->
+                <div class="w-full lg:w-1/3 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-upload"></i> Upload Product Data</h3>
+                    <div class="space-y-4">
+                        <!-- Added Image Upload Field -->
+                        <div class="border-2 border-dashed border-indigo-300/30 rounded-lg p-4 text-center hover:bg-white/5 hover:border-indigo-400 transition cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up text-3xl text-indigo-300 mb-2"></i>
+                            <p class="text-sm text-indigo-100 font-medium">Upload Product Photo</p>
+                            <p class="text-xs text-indigo-300 mt-1">Supports JPG, PNG</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-indigo-200 mb-1">Product Category</label>
+                            <select id="prodCategory" class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500">
+                                <option value="saree">Handloom Saree</option>
+                                <option value="pottery">Terracotta Pottery</option>
+                                <option value="bamboo">Bamboo Craft</option>
+                                <option value="painting">Madhubani Painting</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-indigo-200 mb-1">Material Cost (₹)</label>
+                            <input type="number" id="matCost" value="400" class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-indigo-200 mb-1">Labor Hours</label>
+                            <input type="number" id="laborHours" value="12" class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-indigo-200 mb-1">Craft Complexity</label>
+                            <div class="flex gap-2">
+                                <button class="flex-1 py-1 bg-slate-800 border border-slate-600 rounded hover:bg-indigo-600 text-sm">Low</button>
+                                <button class="flex-1 py-1 bg-indigo-600 border border-indigo-500 rounded text-sm">Medium</button>
+                                <button class="flex-1 py-1 bg-slate-800 border border-slate-600 rounded hover:bg-indigo-600 text-sm">High</button>
+                            </div>
+                        </div>
+                        <button onclick="analyzePrice()" class="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 rounded-lg font-bold shadow-lg transition transform hover:-translate-y-1">
+                            <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Analyze Fair Price
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Analysis Output Module -->
+                <div class="w-full lg:w-2/3 bg-white text-slate-800 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                    <!-- Loading overlay (hidden by default) -->
+                    <div id="analysisLoader" class="hidden absolute inset-0 bg-white/90 z-20 flex flex-col items-center justify-center">
+                        <div class="loader mb-4"></div>
+                        <p class="text-indigo-600 font-bold animate-pulse">AI is comparing global rates...</p>
+                    </div>
+
+                    <div class="flex justify-between items-start mb-6 border-b border-slate-100 pb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800">Price Analysis Report</h3>
+                            <p class="text-sm text-slate-500">Generated by RuralRoots AI • <span id="reportDate">Today</span></p>
+                        </div>
+                        <div class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-arrow-trend-up"></i> High Demand
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Price Recommendation -->
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <span class="text-slate-500 text-sm block mb-1">AI Recommended Price</span>
+                            <div class="flex items-baseline gap-2">
+                                <span id="recPrice" class="text-4xl font-bold text-indigo-600">₹2,450</span>
+                                <span class="text-sm text-slate-400">per unit</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">
+                                <i class="fa-solid fa-check-circle text-green-500"></i> Includes 20% profit margin
+                            </p>
+                            <p class="text-xs text-slate-500">
+                                <i class="fa-solid fa-check-circle text-green-500"></i> Competitive in Urban Markets
+                            </p>
+                        </div>
+
+                        <!-- Market comparison -->
+                        <div class="flex flex-col justify-center">
+                            <div class="mb-4">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Local Market Rate</span>
+                                    <span class="font-bold">₹1,200</span>
+                                </div>
+                                <div class="w-full bg-slate-200 rounded-full h-2">
+                                    <div class="bg-slate-400 h-2 rounded-full" style="width: 40%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-indigo-600 font-bold">Global Potential (Our Platform)</span>
+                                    <span class="font-bold text-indigo-600">₹2,450</span>
+                                </div>
+                                <div class="w-full bg-slate-200 rounded-full h-2">
+                                    <div class="bg-indigo-600 h-2 rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-3 italic">"Your craftsmanship is rated 'Premium' by our image analysis tool, justifying a higher price point."</p>
+                        </div>
+                    </div>
+
+                    <!-- Cost Breakdown Chart -->
+                    <div class="mt-8">
+                        <h4 class="font-bold text-sm text-slate-700 mb-3">Revenue Breakdown</h4>
+                        <div class="flex h-8 rounded-lg overflow-hidden text-xs font-bold text-white text-center leading-8">
+                            <div style="width: 65%" class="bg-green-500" title="Your Earning">Artisan Share (65%)</div>
+                            <div style="width: 15%" class="bg-blue-500" title="Material Cost">Material (15%)</div>
+                            <div style="width: 20%" class="bg-indigo-500" title="Platform & Logistics">Fees (20%)</div>
+                        </div>
+                        <div class="flex justify-between mt-2 text-xs text-slate-500">
+                            <span class="flex items-center gap-1"><div class="w-3 h-3 bg-green-500 rounded-sm"></div> Net Income: <span id="netIncome">₹1,592</span></span>
+                            <span class="flex items-center gap-1"><div class="w-3 h-3 bg-blue-500 rounded-sm"></div> Material: <span id="matBreakdown">₹367</span></span>
+                            <span class="flex items-center gap-1"><div class="w-3 h-3 bg-indigo-500 rounded-sm"></div> Platform: <span id="platFee">₹490</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Explainer -->
+    <section id="technology" class="py-20 bg-slate-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="md:w-1/2">
+                    <span class="text-indigo-400 font-bold tracking-wider uppercase text-sm mb-2 block">The Tech Behind The Impact</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">How Cloud & AI Change Lives</h2>
+                    <p class="text-slate-300 mb-6 leading-relaxed">
+                        Traditional artisans struggle with market access and inventory. Our platform bridges this gap using cutting-edge technology.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">AI Demand Forecasting</h4>
+                                <p class="text-sm text-slate-400">Algorithms predict market trends, advising artisans what to make and when, reducing waste by 40%.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">Cloud Scalability</h4>
+                                <p class="text-sm text-slate-400">Our cloud-native infrastructure ensures the site never crashes, even when a rural product goes viral globally.</p>
+                            </div>
+                        </div>
+                         <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-language"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">Real-time NLP Translation</h4>
+                                <p class="text-sm text-slate-400">Artisans type in Hindi or Tamil; Global buyers read in English or French. Zero communication barriers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 relative">
+                    <!-- Tech visual representation -->
+                    <div class="bg-slate-800 rounded-2xl p-6 shadow-2xl border border-slate-700">
+                        <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4">
+                            <span class="font-mono text-sm text-green-400"><i class="fa-solid fa-circle text-xs mr-2"></i>System Operational</span>
+                            <span class="text-xs text-slate-500">Latency: 24ms</span>
+                        </div>
+                        <!-- Mock Dashboard -->
+                        <div class="space-y-4 font-mono text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-400">Analyzing Market Trends...</span>
+                                <span class="text-indigo-400">Done <i class="fa-solid fa-check"></i></span>
+                            </div>
+                             <div class="w-full bg-slate-700 rounded-full h-2 mb-4">
+                                <div class="bg-indigo-500 h-2 rounded-full" style="width: 100%"></div>
+                            </div>
+                            
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-400">Optimizing Image Assets (CDN)...</span>
+                                <span class="text-indigo-400">Optimized <i class="fa-solid fa-bolt"></i></span>
+                            </div>
+                            
+                             <div class="bg-slate-700/50 p-3 rounded border-l-2 border-yellow-500">
+                                <p class="text-yellow-500 text-xs mb-1">Alert: High Demand Detected</p>
+                                <p class="text-slate-300">Suggestion for Artisan ID #402: Increase production of "Blue Pottery" by 25% for upcoming Diwali season.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 py-12 border-t border-slate-800">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fa-solid fa-tree text-green-500 text-xl"></i>
+                        <span class="text-xl font-bold text-white">RuralRoots</span>
+                    </div>
+                    <p class="text-sm text-slate-400">Bridging the gap between rural talent and global appreciation through technology.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Shop</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition">New Arrivals</a></li>
+                        <li><a href="#" class="hover:text-white transition">Best Sellers</a></li>
+                        <li><a href="#" class="hover:text-white transition">Artisan Direct</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition">Impact Report</a></li>
+                        <li><a href="#" class="hover:text-white transition">Join as Artisan</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Newsletter</h4>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email" class="bg-slate-800 border-none text-white px-4 py-2 rounded-l-lg focus:ring-1 focus:ring-indigo-500 w-full outline-none">
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-r-lg transition">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+                <p>&copy; 2025 RuralRoots Platform. All rights reserved.</p>
+                <div class="flex items-center gap-4 mt-4 md:mt-0">
+                    <span><i class="fa-solid fa-shield-halved mr-1"></i> Cloud Secured</span>
+                    <span><i class="fa-brands fa-aws mr-1"></i> Hosted on AWS</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Simple Translation Simulation
+        function toggleLanguage() {
+            const btn = document.getElementById('lang-text');
+            const heroTitle = document.querySelector('h1');
+            const heroDesc = document.querySelector('header p');
+            
+            if (btn.innerText === 'EN') {
+                btn.innerText = 'HI'; // Hindi
+                // Simulate translation
+                heroTitle.innerHTML = 'वैश्विक तकनीक के साथ<br>ग्रामीण शिल्प कौशल को सशक्त बनाना';
+                heroDesc.innerText = 'क्लाउड स्केलेबिलिटी और एआई-संचालित बाजार अंतर्दृष्टि का उपयोग करके अलग-थलग ग्रामीण कारीगरों को वैश्विक बाजार से जोड़ना।';
+            } else if (btn.innerText === 'HI') {
+                btn.innerText = 'TE'; // Telugu
+                // Simulate translation
+                heroTitle.innerHTML = 'ప్రపంచ సాంకేతికతతో<br>గ్రామీణ చేతివృత్తుల వారిని శక్తివంతం చేయడం';
+                heroDesc.innerText = 'క్లౌడ్ స్కేలబిలిటీ మరియు AI-ఆధారిత మార్కెట్ అంతర్దృష్టులను ఉపయోగించి మారుమూల గ్రామీణ కళాకారులను ప్రపంచ మార్కెట్‌కు అనుసంధానించడం.';
+            } else {
+                btn.innerText = 'EN';
+                heroTitle.innerHTML = 'Empowering Rural Craftsmanship<br>with Global Technology';
+                heroDesc.innerText = 'Connecting isolated rural artisans to the global market using Cloud Scalability and AI-driven market insights.';
+            }
+        }
+
+        // Price Analysis Logic
+        function analyzePrice() {
+            const loader = document.getElementById('analysisLoader');
+            const priceDisplay = document.getElementById('recPrice');
+            const netIncomeDisplay = document.getElementById('netIncome');
+            const matBreakdownDisplay = document.getElementById('matBreakdown');
+            const platFeeDisplay = document.getElementById('platFee');
+            
+            loader.classList.remove('hidden');
+            
+            setTimeout(() => {
+                // Get inputs
+                const matCost = parseInt(document.getElementById('matCost').value) || 0;
+                const labor = parseInt(document.getElementById('laborHours').value) || 0;
+                
+                // Simple calculation logic for demo
+                // Assume base labor rate ₹100/hr + Material Cost * 3 (standard multiplier)
+                const calculatedPrice = (matCost * 3) + (labor * 120); 
+                
+                // Update Main Price
+                priceDisplay.innerText = "₹" + calculatedPrice.toLocaleString();
+                
+                // Update Breakdown details (Approximate percentages from visual chart)
+                const artisanShare = Math.round(calculatedPrice * 0.65);
+                const materialShare = Math.round(calculatedPrice * 0.15);
+                const feeShare = Math.round(calculatedPrice * 0.20);
+
+                netIncomeDisplay.innerText = "₹" + artisanShare.toLocaleString();
+                matBreakdownDisplay.innerText = "₹" + materialShare.toLocaleString();
+                platFeeDisplay.innerText = "₹" + feeShare.toLocaleString();
+                
+                loader.classList.add('hidden');
+            }, 1500); // Simulate network delay
+        }
+    </script>
+</body>
+</html>
